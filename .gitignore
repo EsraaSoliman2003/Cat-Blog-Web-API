@@ -1,48 +1,99 @@
-# Logs
-logs
-*.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
-lerna-debug.log*
+###################################
+##   ASP.NET Core / Visual Studio
+###################################
 
-node_modules
-dist
-dist-ssr
-*.local
+# BackEnd build results
+BackEnd/[Dd]ebug/
+BackEnd/[Rr]elease/
+BackEnd/x64/
+BackEnd/x86/
+BackEnd/[Aa][Rr][Mm]/
+BackEnd/[Aa][Rr][Mm]64/
+BackEnd/bld/
+BackEnd/[Bb]in/
+BackEnd/[Oo]bj/
+BackEnd/[Ll]og/
 
-# Editor directories and files
-.vscode/*
-!.vscode/extensions.json
-.idea
+# BackEnd VS caches and temp files
+BackEnd/.vs/
+BackEnd/*.vsidx
+BackEnd/*.vscode/
+BackEnd/*.ncb
+BackEnd/*.opendb
+BackEnd/*.cachefile
+BackEnd/*.dbmdl
+BackEnd/*.bak
+BackEnd/*.backup
+BackEnd/*.log
+
+# BackEnd test results
+BackEnd/[Tt]est[Rr]esult*/
+BackEnd/[Bb]uild[Ll]og.*
+
+# BackEnd publish results
+BackEnd/[Pp]ublishProfiles/
+BackEnd/*.pubxml
+BackEnd/*.publishproj
+
+# BackEnd others
+BackEnd/project.lock.json
+BackEnd/project.fragment.lock.json
+BackEnd/artifacts/
+BackEnd/*.ide/
+BackEnd/*.pdb
+BackEnd/*.dll
+BackEnd/*.exe
+BackEnd/*.user
+BackEnd/*.userosscache
+BackEnd/*.suo
+BackEnd/*.sln.docstates
+
+###################################
+##   Node.js / React (FrontEnd)
+###################################
+
+# FrontEnd logs
+FrontEnd/logs
+FrontEnd/*.log
+FrontEnd/npm-debug.log*
+FrontEnd/yarn-debug.log*
+FrontEnd/yarn-error.log*
+FrontEnd/pnpm-debug.log*
+FrontEnd/lerna-debug.log*
+
+# FrontEnd node modules
+FrontEnd/node_modules/
+
+# FrontEnd build
+FrontEnd/dist/
+FrontEnd/dist-ssr/
+FrontEnd/*.local/
+FrontEnd/build/
+FrontEnd/.eslintcache
+FrontEnd/.cache/
+
+# FrontEnd environment variables
+FrontEnd/.env
+FrontEnd/.env.local
+FrontEnd/.env.development.local
+FrontEnd/.env.test.local
+FrontEnd/.env.production.local
+
+# FrontEnd editor directories and files
+FrontEnd/.vscode/*
+!FrontEnd/.vscode/extensions.json
+FrontEnd/.idea
+FrontEnd/*.suo
+FrontEnd/*.ntvs*
+FrontEnd/*.njsproj
+FrontEnd/*.sln
+FrontEnd/*.sw?
+
+###################################
+##   OS generated files
+###################################
+
 .DS_Store
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
-
-# Build outputs
-BackEnd/bin/
-BackEnd/obj/
-BackEnd/Debug/
-BackEnd/Release/
-
-# Visual Studio
-.vs/
-*.user
-*.suo
-
-# Node.js
-node_modules/
-
-# Logs
-*.log
-
-# Other generated files
-*.vsidx
-*.cache
-*.pdb
-*.exe
-*.dll
+Thumbs.db
+desktop.ini
+$RECYCLE.BIN/
