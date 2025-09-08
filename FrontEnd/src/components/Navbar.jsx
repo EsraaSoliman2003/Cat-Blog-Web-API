@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import useBlog from "../context/useBlog";
 
 export default function Navbar() {
-  const { token, login } = useBlog();
+  const { token, logout } = useBlog();
 
   return (
     <nav
@@ -13,6 +13,7 @@ export default function Navbar() {
         padding: "10px 20px",
         background: "#222",
         color: "#fff",
+        height: "40px",
       }}
     >
       {/* Logo */}
@@ -24,31 +25,35 @@ export default function Navbar() {
 
       {/* Links */}
       <div style={{ display: "flex", gap: "15px" }}>
-        <Link to="/" style={{ color: "white", textDecoration: "none" }}>
-          Home
-        </Link>
-        <Link to="/admin" style={{ color: "white", textDecoration: "none" }}>
-          Admin
-        </Link>
-
         {/* Login/Logout */}
         {token ? (
-          <button
-            onClick={() => window.location.reload()} // بسيطة عشان تعملي reset
-            style={{
-              background: "crimson",
-              border: "none",
-              color: "white",
-              padding: "5px 10px",
-              borderRadius: "5px",
-              cursor: "pointer",
-            }}
-          >
-            Logout
-          </button>
+          <>
+            <Link to="/" style={{ color: "white", textDecoration: "none" }}>
+              Home
+            </Link>
+            <Link
+              to="/admin"
+              style={{ color: "white", textDecoration: "none" }}
+            >
+              DashBoard
+            </Link>
+            <button
+              onClick={logout}
+              style={{
+                background: "crimson",
+                border: "none",
+                color: "white",
+                padding: "5px 10px",
+                borderRadius: "5px",
+                cursor: "pointer",
+              }}
+            >
+              Logout
+            </button>
+          </>
         ) : (
-          <button
-            onClick={() => login("admin", "1234")}
+          <Link
+            to="/login"
             style={{
               background: "seagreen",
               border: "none",
@@ -59,7 +64,7 @@ export default function Navbar() {
             }}
           >
             Login
-          </button>
+          </Link>
         )}
       </div>
     </nav>

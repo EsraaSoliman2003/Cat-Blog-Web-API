@@ -4,6 +4,8 @@ import Home from "./pages/Home";
 import PostDetails from "./pages/PostDetails";
 import Admin from "./pages/Admin";
 import Navbar from "./components/Navbar";
+import Login from "./pages/Login";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
   return (
@@ -11,9 +13,22 @@ function App() {
       <BrowserRouter>
         <Navbar />
         <Routes>
+          {/* Visitors */}
           <Route path="/" element={<Home />} />
           <Route path="/post/:Id" element={<PostDetails />} />
-          <Route path="/admin" element={<Admin />} />
+
+          {/* Auth */}
+          <Route path="/login" element={<Login />} />
+
+          {/* Admin */}
+          <Route
+            path="/admin"
+            element={
+              <ProtectedRoute>
+                <Admin />
+              </ProtectedRoute>
+            }
+          />
         </Routes>
       </BrowserRouter>
     </BlogProvider>

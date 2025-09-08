@@ -8,7 +8,17 @@ const BlogProvider = ({ children }) => {
 
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [token, setToken] = useState(null);
+  const [token, setToken] = useState(
+    () => localStorage.getItem("token") || null
+  );
+
+  useEffect(() => {
+    if (token) {
+      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+    } else {
+      delete axios.defaults.headers.common["Authorization"];
+    }
+  }, [token]);
 
   const fetchPosts = async () => {
     setLoading(true);
@@ -37,7 +47,9 @@ const BlogProvider = ({ children }) => {
         Username: username,
         Password: password,
       });
-      setToken(res.data?.token || "dummy-token");
+      const newToken = res.data?.Token || "dummy-token";
+      setToken(newToken);
+      localStorage.setItem("token", newToken);
       return true;
     } catch (err) {
       console.error("Login failed", err);
@@ -45,11 +57,14 @@ const BlogProvider = ({ children }) => {
     }
   };
 
+  const logout = () => {
+    setToken(null);
+    localStorage.removeItem("token");
+  };
+
   const createPost = async (post) => {
     try {
-      const res = await axios.post(`${baseUrl}/Admin/create`, post, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      const res = await axios.post(`${baseUrl}/Admin/create`, post);
       fetchPosts();
       return res.data;
     } catch (err) {
@@ -59,9 +74,7 @@ const BlogProvider = ({ children }) => {
 
   const editPost = async (id, post) => {
     try {
-      await axios.put(`${baseUrl}/Admin/edit/${id}`, post, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      await axios.put(`${baseUrl}/Admin/edit/${id}`, post);
       fetchPosts();
     } catch (err) {
       console.error("Error editing post", err);
@@ -70,9 +83,7 @@ const BlogProvider = ({ children }) => {
 
   const deletePost = async (id) => {
     try {
-      await axios.delete(`${baseUrl}/Admin/delete/${id}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      await axios.delete(`${baseUrl}/Admin/delete/${id}`);
       fetchPosts();
     } catch (err) {
       console.error("Error deleting post", err);
@@ -89,6 +100,7 @@ const BlogProvider = ({ children }) => {
         posts,
         loading,
         login,
+        logout,
         createPost,
         editPost,
         deletePost,
