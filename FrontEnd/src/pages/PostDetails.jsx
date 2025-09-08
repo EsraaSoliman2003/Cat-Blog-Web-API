@@ -2,11 +2,14 @@ import { useParams, Link } from "react-router-dom";
 import useBlog from "../context/useBlog";
 
 export default function PostDetails() {
-  const { Id } = useParams(); // نجيب الـ Id من الرابط
+  const { Id } = useParams();
   const { posts } = useBlog();
   const post = posts.find((p) => p.Id.toString() === Id);
 
-  if (!post) return <p style={{ color: "white", textAlign: "center" }}>Post not found</p>;
+  if (!post)
+    return (
+      <p style={{ color: "white", textAlign: "center" }}>Post not found</p>
+    );
 
   return (
     <div

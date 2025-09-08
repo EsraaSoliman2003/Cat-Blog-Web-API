@@ -25,7 +25,6 @@ export default function Navbar() {
 
       {/* Links */}
       <div style={{ display: "flex", gap: "15px" }}>
-        {/* Login/Logout */}
         {token ? (
           <>
             <Link to="/" style={{ color: "white", textDecoration: "none" }}>

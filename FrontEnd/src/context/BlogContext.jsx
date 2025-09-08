@@ -11,6 +11,9 @@ const BlogProvider = ({ children }) => {
   const [token, setToken] = useState(
     () => localStorage.getItem("token") || null
   );
+  const [expiresAt, setExpiresAt] = useState(
+    () => localStorage.getItem("expiresAt") || null
+  );
 
   useEffect(() => {
     if (token) {
@@ -47,9 +50,16 @@ const BlogProvider = ({ children }) => {
         Username: username,
         Password: password,
       });
-      const newToken = res.data?.Token || "dummy-token";
-      setToken(newToken);
-      localStorage.setItem("token", newToken);
+
+      const newToken = res.data?.Token || null;
+      const expiresAt = res.data?.ExpiresAt || null;
+
+      if (newToken && expiresAt) {
+        setToken(newToken);
+        localStorage.setItem("token", newToken);
+        localStorage.setItem("expiresAt", expiresAt);
+      }
+
       return true;
     } catch (err) {
       console.error("Login failed", err);
@@ -57,9 +67,17 @@ const BlogProvider = ({ children }) => {
     }
   };
 
+  const isTokenValid = () => {
+    if (!token || !expiresAt) return false;
+    const now = new Date();
+    return now < new Date(expiresAt);
+  };
+
   const logout = () => {
     setToken(null);
+    setExpiresAt(null);
     localStorage.removeItem("token");
+    localStorage.removeItem("expiresAt");
   };
 
   const createPost = async (post) => {
@@ -100,6 +118,7 @@ const BlogProvider = ({ children }) => {
         posts,
         loading,
         login,
+        isTokenValid,
         logout,
         createPost,
         editPost,

@@ -7,8 +7,11 @@ export default function Home() {
   if (loading) return <p>Loading...</p>;
 
   return (
-    <div className="p-4">
-      <h1 style={{ textAlign: "center", color: "#e0e0e0" }}>Cat Blog 🐱</h1>
+    <div
+      style={{
+        paddingTop: "20px",
+      }}
+    >
       {posts.map((post, index) => (
         <PostCard key={post.Id} post={post} index={index} />
       ))}

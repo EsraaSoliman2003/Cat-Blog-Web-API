@@ -35,7 +35,7 @@ export default function Login() {
             style={styles.input}
           />
         </div>
-        
+
         <div style={styles.formGroup}>
           <label style={styles.label}>Password</label>
           <input

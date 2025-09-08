@@ -1,7 +1,5 @@
 import { Link } from "react-router-dom";
 
-
-
 export default function PostCard({ post, index }) {
   return (
     <div
@@ -29,8 +27,7 @@ export default function PostCard({ post, index }) {
           width: "300px",
           height: "auto",
           objectFit: "cover",
-          borderRadius:
-            index % 2 === 0 ? "12px 0 0 12px" : "0 12px 12px 0",
+          borderRadius: index % 2 === 0 ? "12px 0 0 12px" : "0 12px 12px 0",
         }}
       />
       <div

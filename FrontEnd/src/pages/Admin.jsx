@@ -13,12 +13,11 @@ import {
 } from "@mui/material";
 
 export default function Admin() {
-  const { createPost, posts, deletePost, editPost } = useBlog();
+  const { posts, createPost, deletePost, editPost } = useBlog();
 
   const [form, setForm] = useState({ Title: "", Content: "", ImageUrl: "" });
   const [editingId, setEditingId] = useState(null);
   const [openDialog, setOpenDialog] = useState(false);
-  // ✅ state للحذف
   const [deleteDialog, setDeleteDialog] = useState({ open: false, id: null });
 
   const [snackbar, setSnackbar] = useState({
@@ -284,9 +283,6 @@ export default function Admin() {
           <Button onClick={() => setDeleteDialog({ open: false, id: null })}>
             Cancel
           </Button>
-          {/* <Button variant="contained" color="error" onClick={handleDelete}>
-            Delete
-          </Button> */}
           <Button
             variant="contained"
             color="error"
