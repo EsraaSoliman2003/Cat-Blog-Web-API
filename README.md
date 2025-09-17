@@ -46,6 +46,7 @@ CatBlog is a full-stack blog platform featuring a dynamic frontend built with Vi
 - **React**: JavaScript library for building user interfaces (with Hooks)
 - **React Router**: Declarative routing for React applications
 - **Material-UI (MUI)**: React component library for UI elements (Dialogs, Buttons, TextFields, etc.)
+- **i18next + react-i18next**: Internationalization and translation support for multiple languages (English & Arabic)
 - **Axios**: Promise-based HTTP client for API requests
 - **CSS**: Custom styles for a dark-themed, responsive UI
 
