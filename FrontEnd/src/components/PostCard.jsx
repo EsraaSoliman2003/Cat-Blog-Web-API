@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
-
 export default function PostCard({ post, index }) {
   const { t } = useTranslation();
 
@@ -41,7 +40,6 @@ export default function PostCard({ post, index }) {
           flex: 1,
           display: "flex",
           flexDirection: "column",
-          alignItems: index % 2 === 0 ? "flex-end" : "flex-start",
           alignSelf: "center",
           textAlign: "center",
         }}
