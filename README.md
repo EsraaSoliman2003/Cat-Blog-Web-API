@@ -125,7 +125,7 @@ CatBlog/
 
 1. **Clone the repository**:
    ```bash
-   git clone https://github.com/your-username/CatBlog.git
+   git clone https://github.com/EsraaSoliman2003/Cat-Blog-Web-API.git
    cd CatBlog
    ```
 
