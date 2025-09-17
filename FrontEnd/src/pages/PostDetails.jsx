@@ -1,10 +1,13 @@
 import { useParams, Link } from "react-router-dom";
 import useBlog from "../context/useBlog";
+import { useTranslation } from "react-i18next";
 
 export default function PostDetails() {
   const { Id } = useParams();
   const { posts } = useBlog();
   const post = posts.find((p) => p.Id.toString() === Id);
+  const { t } = useTranslation();
+
 
   if (!post)
     return (
@@ -83,7 +86,7 @@ export default function PostDetails() {
             e.target.style.color = "#e0e0e0";
           }}
         >
-          Back
+          {t("back")}
         </Link>
       </div>
     </div>

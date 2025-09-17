@@ -1,6 +1,10 @@
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+
 
 export default function PostCard({ post, index }) {
+  const { t } = useTranslation();
+
   return (
     <div
       className={`card ${index % 2 === 0 ? "even" : "odd"}`}
@@ -82,7 +86,7 @@ export default function PostCard({ post, index }) {
             e.target.style.borderColor = "#00aacc";
           }}
         >
-          Read More
+          {t("more")}
         </Link>
       </div>
     </div>

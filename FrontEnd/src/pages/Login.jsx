@@ -1,10 +1,12 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useBlog from "../context/useBlog";
+import { useTranslation } from "react-i18next";
 
 export default function Login() {
   const { login } = useBlog();
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -16,17 +18,16 @@ export default function Login() {
     if (success) {
       navigate("/admin");
     } else {
-      setError("Invalid username or password");
+      setError(t("error"));
     }
   };
 
   return (
     <div style={styles.container}>
-      <h2 style={styles.title}>Admin Login</h2>
-
+      <h2 style={styles.title}>{t("button")}</h2>
       <form onSubmit={handleSubmit}>
         <div style={styles.formGroup}>
-          <label style={styles.label}>Username</label>
+          <label style={styles.label}>{t("username")}</label>
           <input
             type="text"
             name="username"
@@ -37,7 +38,7 @@ export default function Login() {
         </div>
 
         <div style={styles.formGroup}>
-          <label style={styles.label}>Password</label>
+          <label style={styles.label}>{t("password")}</label>
           <input
             type="password"
             name="password"
@@ -48,7 +49,7 @@ export default function Login() {
         </div>
 
         <button type="submit" style={styles.button}>
-          Login
+          {t("button")}
         </button>
       </form>
 

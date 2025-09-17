@@ -6,12 +6,16 @@ import Admin from "./pages/Admin";
 import Navbar from "./components/Navbar";
 import Login from "./pages/Login";
 import ProtectedRoute from "./components/ProtectedRoute";
+import "./i18n";
+import { useState } from "react";
 
 function App() {
+  const [lang, setLang] = useState(localStorage.getItem("language") || "en");
+
   return (
     <BlogProvider>
       <BrowserRouter>
-        <Navbar />
+        <Navbar lang={lang} setLang={setLang} />
         <Routes>
           {/* Visitors */}
           <Route path="/" element={<Home />} />
@@ -25,7 +29,7 @@ function App() {
             path="/admin"
             element={
               <ProtectedRoute>
-                <Admin />
+                <Admin lang={lang} />
               </ProtectedRoute>
             }
           />

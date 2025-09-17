@@ -11,9 +11,11 @@ import {
   Alert,
   Typography,
 } from "@mui/material";
+import { useTranslation } from "react-i18next";
 
-export default function Admin() {
+export default function Admin({lang}) {
   const { posts, createPost, deletePost, editPost } = useBlog();
+  const { t } = useTranslation();
 
   const [form, setForm] = useState({ Title: "", Content: "", ImageUrl: "" });
   const [editingId, setEditingId] = useState(null);
@@ -32,7 +34,7 @@ export default function Admin() {
       await createPost(form);
       setSnackbar({
         open: true,
-        message: "Post created successfully!",
+        message: t("post_created"),
         severity: "success",
       });
       setForm({ Title: "", Content: "", ImageUrl: "" });
@@ -40,7 +42,7 @@ export default function Admin() {
       console.log(err);
       setSnackbar({
         open: true,
-        message: "Failed to create post.",
+        message: t("post_failed"),
         severity: "error",
       });
     }
@@ -52,7 +54,7 @@ export default function Admin() {
       await editPost(editingId, form);
       setSnackbar({
         open: true,
-        message: "Post updated successfully!",
+        message: t("post_updated"),
         severity: "success",
       });
       setOpenDialog(false);
@@ -62,7 +64,7 @@ export default function Admin() {
       console.log(err);
       setSnackbar({
         open: true,
-        message: "Failed to update post.",
+        message: t("post_update_failed"),
         severity: "error",
       });
     }
@@ -74,14 +76,14 @@ export default function Admin() {
       await deletePost(id);
       setSnackbar({
         open: true,
-        message: "Post deleted successfully!",
+        message: t("post_deleted"),
         severity: "success",
       });
     } catch (err) {
       console.log(err);
       setSnackbar({
         open: true,
-        message: "Failed to delete post.",
+        message: t("post_delete_failed"),
         severity: "error",
       });
     } finally {
@@ -108,10 +110,11 @@ export default function Admin() {
         backgroundColor: "#121212",
         minHeight: "100vh",
         color: "#e0e0e0",
+        direction: lang === "ar" ? "rtl" : "ltr"
       }}
     >
       <h2 style={{ fontSize: "2rem", marginBottom: "1rem", color: "#90caf9" }}>
-        Admin Dashboard
+        {t("admin_dashboard")}
       </h2>
 
       {/* Create Post */}
@@ -125,12 +128,12 @@ export default function Admin() {
         }}
       >
         <h3 style={{ marginBottom: "1rem", color: "#ffb74d" }}>
-          Create New Post
+          {t("create_new_post")}
         </h3>
 
         <input
           type="text"
-          placeholder="Title"
+          placeholder={t("title")}
           value={form.Title}
           onChange={(e) => setForm({ ...form, Title: e.target.value })}
           style={{
@@ -145,7 +148,7 @@ export default function Admin() {
         />
 
         <textarea
-          placeholder="Content"
+          placeholder={t("content")}
           value={form.Content}
           onChange={(e) => setForm({ ...form, Content: e.target.value })}
           rows={4}
@@ -163,7 +166,7 @@ export default function Admin() {
 
         <input
           type="text"
-          placeholder="Image URL"
+          placeholder={t("image_url")}
           value={form.ImageUrl}
           onChange={(e) => setForm({ ...form, ImageUrl: e.target.value })}
           style={{
@@ -190,15 +193,17 @@ export default function Admin() {
             transition: "0.3s",
           }}
         >
-          Add Post
+          {t("add_post")}
         </button>
       </div>
 
       {/* Posts List */}
       <div>
-        <h3 style={{ marginBottom: "1rem", color: "#81c784" }}>All Posts</h3>
+        <h3 style={{ marginBottom: "1rem", color: "#81c784" }}>
+          {t("all_posts")}
+        </h3>
         {posts.length === 0 ? (
-          <p style={{ color: "#aaa" }}>No posts available</p>
+          <p style={{ color: "#aaa" }}>{t("no_posts")}</p>
         ) : (
           posts.map((p) => (
             <div
@@ -248,7 +253,7 @@ export default function Admin() {
                     fontWeight: "bold",
                   }}
                 >
-                  Edit
+                  {t("edit")}
                 </button>
                 <button
                   onClick={() => setDeleteDialog({ open: true, id: p.Id })}
@@ -262,7 +267,7 @@ export default function Admin() {
                     fontWeight: "bold",
                   }}
                 >
-                  Delete
+                  {t("delete")}
                 </button>
               </div>
             </div>
@@ -275,30 +280,30 @@ export default function Admin() {
         open={deleteDialog.open}
         onClose={() => setDeleteDialog({ open: false, id: null })}
       >
-        <DialogTitle>Confirm Delete</DialogTitle>
+        <DialogTitle>{t("confirm_delete")}</DialogTitle>
         <DialogContent>
-          <Typography>Are you sure you want to delete this post?</Typography>
+          <Typography>{t("delete_confirm_text")}</Typography>
         </DialogContent>
         <DialogActions>
           <Button onClick={() => setDeleteDialog({ open: false, id: null })}>
-            Cancel
+            {t("cancel")}
           </Button>
           <Button
             variant="contained"
             color="error"
             onClick={() => handleDelete(deleteDialog.id)}
           >
-            Delete
+            {t("delete")}
           </Button>
         </DialogActions>
       </Dialog>
 
       {/* Edit Dialog */}
       <Dialog open={openDialog} onClose={() => setOpenDialog(false)} fullWidth>
-        <DialogTitle>Edit Post</DialogTitle>
+        <DialogTitle>{t("edit")}</DialogTitle>
         <DialogContent>
           <TextField
-            label="Title"
+            label={t("title")}
             fullWidth
             variant="outlined"
             value={form.Title}
@@ -307,7 +312,7 @@ export default function Admin() {
           />
 
           <TextField
-            label="Content"
+            label={t("content")}
             fullWidth
             multiline
             rows={4}
@@ -318,7 +323,7 @@ export default function Admin() {
           />
 
           <TextField
-            label="Image URL"
+            label={t("image_url")}
             fullWidth
             variant="outlined"
             value={form.ImageUrl}
@@ -327,9 +332,9 @@ export default function Admin() {
           />
         </DialogContent>
         <DialogActions>
-          <Button onClick={() => setOpenDialog(false)}>Cancel</Button>
+          <Button onClick={() => setOpenDialog(false)}>{t("cancel")}</Button>
           <Button variant="contained" color="success" onClick={handleUpdate}>
-            Update
+            {t("update")}
           </Button>
         </DialogActions>
       </Dialog>
