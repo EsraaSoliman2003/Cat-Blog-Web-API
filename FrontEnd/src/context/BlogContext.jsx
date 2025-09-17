@@ -4,7 +4,7 @@ import axios from "axios";
 const BlogContext = createContext();
 
 const BlogProvider = ({ children }) => {
-  const baseUrl = "http://localhost:5000/api";
+  const baseUrl = import.meta.env.VITE_API_URL;
 
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(false);
