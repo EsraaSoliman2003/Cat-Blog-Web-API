@@ -23,6 +23,22 @@ const BlogProvider = ({ children }) => {
     }
   }, [token]);
 
+  useEffect(() => {
+    if (token && expiresAt) {
+      const remainingTime = new Date(expiresAt).getTime() - Date.now();
+
+      if (remainingTime > 0) {
+        const timer = setTimeout(() => {
+          logout();
+        }, remainingTime);
+
+        return () => clearTimeout(timer);
+      } else {
+        logout();
+      }
+    }
+  }, [token, expiresAt]);
+
   const fetchPosts = async () => {
     setLoading(true);
     try {
@@ -52,12 +68,21 @@ const BlogProvider = ({ children }) => {
       });
 
       const newToken = res.data?.Token || null;
-      const expiresAt = res.data?.ExpiresAt || null;
+      const expires = res.data?.ExpiresAt || null;
 
-      if (newToken && expiresAt) {
+      if (newToken && expires) {
         setToken(newToken);
+        setExpiresAt(expires);
+
         localStorage.setItem("token", newToken);
-        localStorage.setItem("expiresAt", expiresAt);
+        localStorage.setItem("expiresAt", expires);
+
+        const remainingTime = new Date(expires).getTime() - Date.now();
+        if (remainingTime > 0) {
+          setTimeout(() => {
+            logout();
+          }, remainingTime);
+        }
       }
 
       return true;

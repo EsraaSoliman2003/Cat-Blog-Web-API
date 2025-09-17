@@ -60,6 +60,7 @@ export default function Navbar() {
               padding: "5px 10px",
               borderRadius: "5px",
               cursor: "pointer",
+              textDecoration: "none"
             }}
           >
             Login
